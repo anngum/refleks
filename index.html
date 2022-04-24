@@ -1,10 +1,10 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>JS Lab</title>
+    <title>Refleksomierzacz</title>
     <style>
         body {
-            margin: 0;
+            margin: 10px;
             padding: 0;
             font-family: Arial, serif;
         }
@@ -14,24 +14,29 @@
         }
 		.green { color:green;}
 		
+		#pole-gry {
+			width:300px;
+			height:200px;
+			margin: 100px;
+			border: solid 2px black;
+			#background-color: red;
+			}
+		button { width: 100px;
+		height: 100px;
+		margin-left: 100px;
+		}
     </style>
 </head>
 <body>
 <div id="app">
-    <h1 id="main-header">Moja aplikacja</h1>
-    <p>To będzie gra. A oto co muszę zrobić:</p>
-    <ol>
-        <li class="boring">Nauczyć się HTML</li>
-        <li class="boring">Nauczyć się CSS</li>
-        <li>Nauczyć się JS</li>
-        <li id="super-important">Zaimplementować</li>
-    </ol>
+    <h1 id="main-header">Refleksomierzacz</h1>
+    <p>mierzy refleks użytkownika, mierząc czas pomiędzy zmianą na ekranie a kliknięciem myszy</p>
+    
+	<p id = "pole-gry"> </p>
 </div>
-<button type="button" onclick="removeBoringStuff()">Usuń nudne rzeczy</button>
+<button type="button" onclick="removeBoringStuff()">Start</button>
 <br>
-<input type="text" id="myTextField">
-<input type="checkbox" id="myCheckbox">
-<button type="button" onclick="readValues()">Odczytaj wartości</button>
+
 <script>
 
 function readValues(){

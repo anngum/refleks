@@ -1,50 +1,56 @@
 <html lang="pl">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Refleksomierzacz</title>
+	<meta charset="UTF-8">
+	<title>Refleksomierzacz</title>
 	<link rel="stylesheet" href="styl.css">
-	<script src="plik.js"></script> 
+	<script src="plik.js"></script>
 
 
 </head>
+
 <body onload="load()">
-<div id="info">
-<h1 id="main-header">Refleksomierzacz</h1>
-    <p>mierzy refleks użytkownika, mierząc czas pomiędzy zmianą na ekranie a kliknięciem myszy</p>
-</div>
-
-<div id="app">
-    
-	<button type="button" onclick="startStopGame()" id = 'przycisk'>Start</button>
-    <div id = "pole-gry" onclick="readTime()">
-	<p> </p>
+	<div id="info">
+		<h1 id="main-header">Refleksomierzacz</h1>
+		<p>Mierzy refleks użytkownika, mierząc czas pomiędzy zmianą na ekranie a kliknięciem myszy. 
+			Po naciśnięciu przycisku Start, oczekuj na zmianę koloru pola gry.</p>
 	</div>
-	
-	<div id="ustawienia">
+
+	<div id="app">
+		<article>
+
+			<button onclick="startStopGame()" id='przycisk'>Start</button>
+			<div id="pole-gry" onclick="readTime()"> </div>
+			
+		</article>
+		<aside>
+			<div id="ustawienia">
+				<br>
+				<h3> Liczba zmian koloru: <br></h3>
+				<input type="number" id="proby">
+				<button onclick="changeNum()">Zmień</button>
+			</div>
+
+			<div id="statystyki">
+				<h3> Najdłuższy Twój czas: <br></h3>
+				<h2 id="najdluzszy">&nbsp;</h2>
+				<h3> <br>Najkrótszy Twój czas: <br></h3>
+				<h2 id="najkrotszy">&nbsp;</h2>
+				<h3> <br>Twój średni czas: <br></h3>
+				<h2 id="sredni">&nbsp;</h2>
+			</div>
+		</aside>
+	</div>
+
+
+	</div>
+
 	<br>
-<input type="number" id="proby">
-<input type="submit"  value="Zmien" onclick="changeNum()">
-</div>
 
-	<div id="statystyki">
-	<h3> Najdłuższy Twój czas: <br></h3>
-	<h2 id = "najdluzszy"></h2>
-	<h3> <br>Najkrótszy Twój czas: <br></h3>
-	<h2 id = "najkrotszy"></h2>
-	<h3> <br>Twój średni czas: <br></h3>
-	<h2 id = "sredni"></h2>
-	</div>
-
-</div>
+	<script>
 
 
-</div>
-
-<br>
-
-<script>
-
-
-</script>
+	</script>
 </body>
+
 </html>

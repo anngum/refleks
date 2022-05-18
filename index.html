@@ -2,150 +2,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Refleksomierzacz</title>
-	<script>
-	var start = false; //klikanie przycisku
-	var click = false; // klikanie po polu
-	var timeColour;
-	var timeClick;
-	var avgTime;
-	var sumTime =0;
-	var colours = ['green', 'blue', 'yellow', 'red', 'magenta', 'cyan', 'grey', 'pink'];
-	var prevColour = 100;
-	
-	var gameStep;
-	var num = 5;
-	
-	// ------------- FUNKCJA WYCZYSZCZENIA GRY --------------------
-function clearGame(){
-start = false;
-gamestep = 0;
-sumTime =0;
-avgTime = undefined;
-document.getElementById('przycisk').innerHTML="Start";
-document.getElementById('pole-gry').style['background-color'] = document.fgColor;
-document.getElementById('pole-gry').style['display'] = 'none';
-document.getElementById('pole-gry').innerHTML="";
-document.getElementById('kontrola').innerHTML=avgTime;
-
-}
-// ------------- FUNKCJA ZMIANY KOLORU POLA GRY --------------------	
-function changeColour(){
-var randomColour;
- do {
- randomColour = parseInt(Math.random()* 10);}
- while (randomColour<= 0 || randomColour>colours.length || randomColour==prevColour);
- prevColour=randomColour;
- document.getElementById('pole-gry').style['background-color'] = colours[randomColour];
-
-}
-// ------------- FUNKCJA OBLICZANIA ŚREDNIEJ --------------------
-function funAvgTime(){
-var timeMs = timeClick - timeColour;
-sumTime +=timeMs;
-avgTime = sumTime/(gameStep+1); 
-}
-
-// ------------- FUNKCJA ODCZYTANIA CZASU KLIKNIECIA --------------------
-function readTime(){
-if (!click) {click = true;
-timeClick = Date.now();
-funAvgTime();
-document.getElementById('kontrola').innerHTML=avgTime;
-
-}
-}
-
-// ------------- FUNKCJA ZMIANY CZASU PO KTÓRYM NASTĘPUJE ZMIANA KOLORU POLA GRY --------------------
-function timeToChangeColour(){
-console.log('timeToChangeColour');
-    changeColour();
-	timeColour = Date.now();
-	click = false;
-    gameStep++;
-    if(gameStep < num){
-        var randomTime = parseInt(Math.random()*3000);
-		//document.getElementById('kontrola').innerHTML=randomTime;
-		setTimeout(() => timeToChangeColour(), randomTime);
-        //setTimeout(timeToChangeColour, randomTime);
-    }
-	else {document.getElementById('pole-gry').innerHTML="Gra zakończona";
-	document.getElementById('pole-gry').style['background-color'] = document.fgColor;
-	setTimeout(() => clearGame(), 2000);
-	}
-	
-	
-}
-	
-// ------------- FUNKCJA URUCHOMIENIA GRY --------------------
-function playGame(){
-gameStep = 0;
-document.getElementById('pole-gry').innerHTML="";
-    timeToChangeColour();  
-	
+	<link rel="stylesheet" href="styl.css">
+	<script src="plik.js"></script> 
 
 
-}
-
-
-
-
-// ------------- FUNKCJA OBSŁUGI PRZYCISKU --------------------
-	function startStopGame(){
-if (start == false){
-start = true;
-click = false;
-
-document.getElementById('przycisk').innerHTML="STOP";
-document.getElementById('pole-gry').style['display'] = 'block';
-document.getElementById('pole-gry').innerHTML="Gra rozpoczęta";
-setTimeout(() => playGame(), 2000);
-}
-else clearGame();
-}
-
-	
-	</script>
-    <style>
-        body {
-		background-color: papayawhip;
-            margin: 10px;
-            padding: 0;
-            font-family: Arial, serif;
-        }
-
-        h1 {
-            color: #0B3954;
-        }
-		.green { color:green;}
-		
-		#pole-gry {
-			width:70%;
-			height:200px;
-			margin: 100px;
-			padding-top: 100px;
-			border: solid 2px black;
-			text-align: center;
-			font-size: 30px;
-			#background-color: red;
-			display: none;
-			}
-		button { width: 70%;
-		
-		height: 100px;
-		margin-left: 100px;
-		margin-right: 100px;
-		}
-    </style>
 </head>
-<body>
-<div id="app">
-    <h1 id="main-header">Refleksomierzacz</h1>
+<body onload="load()">
+<div id="info">
+<h1 id="main-header">Refleksomierzacz</h1>
     <p>mierzy refleks użytkownika, mierząc czas pomiędzy zmianą na ekranie a kliknięciem myszy</p>
+</div>
+
+<div id="app">
+    
 	<button type="button" onclick="startStopGame()" id = 'przycisk'>Start</button>
     <div id = "pole-gry" onclick="readTime()">
 	<p> </p>
 	</div>
-	<p id = "kontrola"></p>
+	
+	<div id="ustawienia">
+	<br>
+<input type="number" id="proby">
+<input type="submit"  value="Zmien" onclick="changeNum()">
+</div>
+
+	<div id="statystyki">
+	<h3> Najdłuższy Twój czas: <br></h3>
+	<h2 id = "najdluzszy"></h2>
+	<h3> <br>Najkrótszy Twój czas: <br></h3>
+	<h2 id = "najkrotszy"></h2>
+	<h3> <br>Twój średni czas: <br></h3>
+	<h2 id = "sredni"></h2>
+	</div>
+
+</div>
+
+
 </div>
 
 <br>

@@ -1,0 +1,41 @@
+  body {
+		background-color: papayawhip;
+            margin: 10px;
+            padding: 0;
+            font-family: Arial, serif;
+        }
+
+        h1 {
+            color: #0B3954;
+        }
+		#app {
+			width:70%;
+			
+			margin: 20px;
+			padding: 20px;
+			text-align: center;
+			
+		}
+		
+		#pole-gry {
+			
+			margin: 50px;
+			padding-top: 100px;
+			border: solid 2px black;
+			height: 400px;
+			#background-color: red;
+			display: none;
+			}
+		#ustawienie {
+			display: block;
+			}
+		#statystyki {
+			display: none;
+			}
+			
+		button { 
+			width: 70%;
+			height: 100px;
+			margin-left: 100px;
+			margin-right: 100px;
+		}

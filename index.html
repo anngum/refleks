@@ -14,6 +14,20 @@
 	
 	var gameStep;
 	var num = 5;
+	
+	// ------------- FUNKCJA WYCZYSZCZENIA GRY --------------------
+function clearGame(){
+start = false;
+gamestep = 0;
+sumTime =0;
+avgTime = undefined;
+document.getElementById('przycisk').innerHTML="Start";
+document.getElementById('pole-gry').style['background-color'] = document.fgColor;
+document.getElementById('pole-gry').style['display'] = 'none';
+document.getElementById('pole-gry').innerHTML="";
+document.getElementById('kontrola').innerHTML=avgTime;
+
+}
 // ------------- FUNKCJA ZMIANY KOLORU POLA GRY --------------------	
 function changeColour(){
 var randomColour;
@@ -54,6 +68,11 @@ console.log('timeToChangeColour');
 		setTimeout(() => timeToChangeColour(), randomTime);
         //setTimeout(timeToChangeColour, randomTime);
     }
+	else {document.getElementById('pole-gry').innerHTML="Gra zakończona";
+	document.getElementById('pole-gry').style['background-color'] = document.fgColor;
+	setTimeout(() => clearGame(), 2000);
+	}
+	
 	
 }
 	
@@ -67,18 +86,7 @@ document.getElementById('pole-gry').innerHTML="";
 
 }
 
-// ------------- FUNKCJA WYCZYSZCZENIA GRY --------------------
-function clearGame(){
-start = false;
-gamestep = 0;
-sumTime =0;
-avgTime = undefined;
-document.getElementById('przycisk').innerHTML="Start";
-document.getElementById('pole-gry').style['background-color'] = document.fgColor;
-document.getElementById('pole-gry').innerHTML="";
-document.getElementById('kontrola').innerHTML=avgTime;
 
-}
 
 
 // ------------- FUNKCJA OBSŁUGI PRZYCISKU --------------------
@@ -111,19 +119,21 @@ else clearGame();
 		.green { color:green;}
 		
 		#pole-gry {
-			width:300px;
+			width:70%;
 			height:200px;
 			margin: 100px;
-			padding: 100px;
+			padding-top: 100px;
 			border: solid 2px black;
 			text-align: center;
 			font-size: 30px;
 			#background-color: red;
 			display: none;
 			}
-		button { width: 300px;
+		button { width: 70%;
+		
 		height: 100px;
 		margin-left: 100px;
+		margin-right: 100px;
 		}
     </style>
 </head>

@@ -24,7 +24,7 @@ function clearGame() {
 	document.getElementById('pole-gry').innerHTML = "";
 
 	document.getElementById('ustawienia').style['display'] = 'block';
-	document.getElementById('statystyki').style['display'] = 'none';
+	//document.getElementById('statystyki').style['display'] = 'none';
 	//document.getElementById('sredni').innerHTML = "&nbsp;";
 	//document.getElementById('najdluzszy').innerHTML = "&nbsp;";
 	//document.getElementById('najkrotszy').innerHTML = "&nbsp;";
@@ -52,7 +52,7 @@ function changeColour() {
 	do {
 		randomColour = parseInt(Math.random() * 10);
 	}
-	while (randomColour <= 0 || randomColour > colours.length || randomColour == prevColour);
+	while (randomColour < 0 || randomColour >= colours.length || randomColour == prevColour);
 	prevColour = randomColour;
 	console.log('changeColour, new color:' + randomColour);
 	document.getElementById('pole-gry').style['background-color'] = colours[randomColour];
@@ -83,20 +83,21 @@ function readTime() {
 }
 
 // ------------- FUNKCJA ZMIANY CZASU PO KTÓRYM NASTĘPUJE ZMIANA KOLORU POLA GRY --------------------
-function timeToChangeColour() {
-	console.log('===============   timeToChangeColour');
-	changeColour();
-	timeColour = Date.now();
-	click = false;
+function nextGameStep() {
+	console.log('===============   nextGameStep');
+
 	gameStep++;
 	console.log('gameStep:' + gameStep);
-	if (gameStep < num) {
+
+	if (gameStep <= num) {
+		changeColour();
+		timeColour = Date.now();
+		click = false;
 		var randomTime = parseInt(Math.random() * 3000 + 1000);
 		//document.getElementById('kontrola').innerHTML=randomTime;
-		setTimeout(() => timeToChangeColour(), randomTime);
+		setTimeout(() => nextGameStep(), randomTime);
 		//setTimeout(timeToChangeColour, randomTime);
-	}
-	else {
+	} else {
 		document.getElementById('pole-gry').innerHTML = "Gra zakończona";
 		document.getElementById('pole-gry').style['background-color'] = document.fgColor;
 		setTimeout(() => clearGame(), 2000);
@@ -110,7 +111,7 @@ function playGame() {
 	gameStep = 0;
 	document.getElementById('pole-gry').innerHTML = "";
 
-	timeToChangeColour();
+	nextGameStep();
 
 
 
@@ -124,6 +125,10 @@ function startStopGame() {
 	if (start == false) {
 		start = true;
 		click = false;
+		avgTime =0;
+		minTime = 999999;
+		maxTime = 0;
+		sumTime = 0;
 
 
 		document.getElementById('przycisk').innerHTML = "STOP";
@@ -131,8 +136,7 @@ function startStopGame() {
 		document.getElementById('pole-gry').innerHTML = "Gra rozpoczęta";
 		//document.getElementById('ustawienia').style['display'] = 'none';
 		setTimeout(() => playGame(), 2000);
-	}
-	else {clearGame();
-
+	} else {
+		clearGame();
 	}
 }

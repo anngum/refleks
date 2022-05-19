@@ -41,10 +41,23 @@ function changeNum() {
 }
 
 // ------------- FUNKCJA ZMIANY STATYSTYK --------------------	
-function displayStat() {
-	document.getElementById('sredni').innerHTML = avgTime;
-	document.getElementById('najdluzszy').innerHTML = maxTime;
-	document.getElementById('najkrotszy').innerHTML = minTime;
+function displayStats() {
+	let min,max,avg;
+	if(typeof minTime !== 'undefined'){
+		avg = avgTime.toFixed(1) + ' [ms]';
+		max = maxTime + ' [ms]';
+		min = minTime + ' [ms]';
+		document.getElementById('statystyki').style['display'] = 'block';
+	} else {
+		min='&nbsp;';
+		max='&nbsp;';
+		avg='&nbsp;';
+		document.getElementById('statystyki').style['display'] = 'none';
+	}
+	document.getElementById('sredni').innerHTML = avg;
+	document.getElementById('najdluzszy').innerHTML = max;
+	document.getElementById('najkrotszy').innerHTML = min;
+	// jak liczyć średnią, gdy ktoś w ogóle nie klinie?
 }
 // ------------- FUNKCJA ZMIANY KOLORU POLA GRY --------------------	
 function changeColour() {
@@ -63,9 +76,9 @@ function funAvgTime() {
 	var timeMs = timeClick - timeColour;
 	console.log("clicked after " + timeMs + " [ms]");
 	sumTime += timeMs;
-	avgTime = sumTime / (gameStep + 1);
+	avgTime = sumTime / (gameStep);
 	if (timeMs > maxTime) maxTime = timeMs;
-	if (timeMs < minTime) minTime = timeMs;
+	if (typeof minTime == 'undefined' || timeMs < minTime) minTime = timeMs;
 }
 
 // ------------- FUNKCJA ODCZYTANIA CZASU KLIKNIECIA --------------------
@@ -75,10 +88,7 @@ function readTime() {
 		console.log("clicked");
 		timeClick = Date.now();
 		funAvgTime();
-		displayStat();
-		document.getElementById('statystyki').style['display'] = 'block';
-
-
+		displayStats();
 	}
 }
 
@@ -112,9 +122,6 @@ function playGame() {
 	document.getElementById('pole-gry').innerHTML = "";
 
 	nextGameStep();
-
-
-
 }
 
 
@@ -126,10 +133,10 @@ function startStopGame() {
 		start = true;
 		click = false;
 		avgTime =0;
-		minTime = 999999;
+		minTime = undefined;
 		maxTime = 0;
 		sumTime = 0;
-
+		displayStats();
 
 		document.getElementById('przycisk').innerHTML = "STOP";
 		document.getElementById('pole-gry').style['display'] = 'block';

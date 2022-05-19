@@ -12,6 +12,8 @@ var prevColour = 100;
 var gameStep;
 var num = 5;
 
+var stepTimeoutHandler;
+
 // ------------- FUNKCJA WYCZYSZCZENIA GRY --------------------
 function clearGame() {
 	start = false;
@@ -105,7 +107,7 @@ function nextGameStep() {
 		click = false;
 		var randomTime = parseInt(Math.random() * 3000 + 1000);
 		//document.getElementById('kontrola').innerHTML=randomTime;
-		setTimeout(() => nextGameStep(), randomTime);
+		stepTimeoutHandler = setTimeout(() => nextGameStep(), randomTime);
 		//setTimeout(timeToChangeColour, randomTime);
 	} else {
 		document.getElementById('pole-gry').innerHTML = "Gra zakończona";
@@ -144,6 +146,7 @@ function startStopGame() {
 		//document.getElementById('ustawienia').style['display'] = 'none';
 		setTimeout(() => playGame(), 2000);
 	} else {
+		clearTimeout(stepTimeoutHandler);
 		clearGame();
 	}
 }

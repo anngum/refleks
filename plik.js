@@ -1,5 +1,5 @@
 var start = false; //klikanie przycisku
-var click = false; // klikanie po polu
+var waitingForClick = false; // klikanie po polu
 var timeColour;
 var timeClick;
 var avgTime;
@@ -17,6 +17,7 @@ var stepTimeoutHandler;
 // ------------- FUNKCJA WYCZYSZCZENIA GRY --------------------
 function clearGame() {
 	start = false;
+	waitingForClick = false;
 	gamestep = 0;
 	sumTime = 0;
 	avgTime = undefined;
@@ -85,8 +86,8 @@ function funAvgTime() {
 
 // ------------- FUNKCJA ODCZYTANIA CZASU KLIKNIECIA --------------------
 function readTime() {
-	if (!click) {
-		click = true;
+	if (waitingForClick) {
+		waitingForClick = false;
 		console.log("clicked");
 		timeClick = Date.now();
 		funAvgTime();
@@ -104,8 +105,9 @@ function nextGameStep() {
 	if (gameStep <= num) {
 		changeColour();
 		timeColour = Date.now();
-		click = false;
+		waitingForClick = true;
 		var randomTime = parseInt(Math.random() * 3000 + 1000);
+		console.log('time:' + randomTime);
 		//document.getElementById('kontrola').innerHTML=randomTime;
 		stepTimeoutHandler = setTimeout(() => nextGameStep(), randomTime);
 		//setTimeout(timeToChangeColour, randomTime);
@@ -122,6 +124,8 @@ function nextGameStep() {
 function playGame() {
 	gameStep = 0;
 	document.getElementById('pole-gry').innerHTML = "";
+	document.getElementById('przycisk').innerHTML = "STOP";
+	document.getElementById('przycisk').disabled = false;
 
 	nextGameStep();
 }
@@ -133,14 +137,14 @@ function playGame() {
 function startStopGame() {
 	if (start == false) {
 		start = true;
-		click = false;
 		avgTime =0;
 		minTime = undefined;
 		maxTime = 0;
 		sumTime = 0;
 		displayStats();
 
-		document.getElementById('przycisk').innerHTML = "STOP";
+		document.getElementById('przycisk').innerHTML = "Uruchamianie...";
+		document.getElementById('przycisk').disabled = true;
 		document.getElementById('pole-gry').style['display'] = 'block';
 		document.getElementById('pole-gry').innerHTML = "Gra rozpoczęta";
 		//document.getElementById('ustawienia').style['display'] = 'none';
